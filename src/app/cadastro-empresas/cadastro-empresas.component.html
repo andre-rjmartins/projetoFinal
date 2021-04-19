@@ -1,0 +1,41 @@
+<h3>Cadastrar Empresas</h3>
+<p>Preencha o formulário com as informações necessárias para cadastrar uma empresa.</p>
+<hr>
+
+<div class="text-danger">
+	<ul>
+		<li *ngFor="let mensagem of mensagens_erro">{{mensagem}}</li>
+	</ul>
+</div>
+
+<div class="text-success">
+	<ul>
+		<li *ngFor="let mensagem of mensagens_sucesso"><strong>{{mensagem}}</strong></li>
+	</ul>
+</div>
+
+<form #formCadastro="ngForm" (submit)="cadastrarEmpresa(formCadastro)" autocomplete="off">
+
+    <label>Nome Fantasia:</label>
+    <input type="text" name="nomeFantasia" 
+	    ngModel
+	    class="form-control" 
+	    placeholder="Ex: Coca-Cola">
+    <br>
+
+    <label>Razão Social:</label>
+    <input type="text" name="razaoSocial" 
+	    ngModel
+	    class="form-control" 
+	    placeholder="Ex: Coca-Cola Empresa de Bebidas ltda.">
+    <br>
+
+    <label>CNPJ:</label>
+    <input type="text" name="cnpj" 
+	    ngModel
+	    class="form-control" 
+	    placeholder="Ex: 99.999.999/9999-99">
+    <br>
+
+    <input type="submit" class="btn btn-success" value="Cadastrar Empresa">
+</form>

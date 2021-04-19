@@ -1,0 +1,181 @@
+<table class="table table-hover">
+
+    <thead>
+        <tr>
+            <th>Nome</th>
+            <th>CPF</th>
+            <th>Data de Admissao</th>
+            <th>Salário</th>
+            <th>Nome da Empresa</th>
+            <th>CNPJ da Empresa</th>
+            <th>Operações</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        <tr *ngFor="let funcionario of listaFuncionarios">
+            <td>{{funcionario.nome}}</td>
+            <td>{{funcionario.cpf}}</td>
+            <td>{{funcionario.dataAdmissao}}</td>
+            <td>{{funcionario.salario}}</td>
+            <td>{{funcionario.empresa.nomeFantasia}}</td>
+            <td>{{funcionario.empresa.cnpj}}</td>
+            <td>
+                <button class="btn btn-primary btn-sm" 
+                        data-bs-toggle="modal" 
+                        data-bs-target="#janela_edicao" 
+                        (click)="obterFuncionario(funcionario.idFuncionario)">Atualizar</button>
+                &nbsp;
+                <button class="btn btn-danger btn-sm"
+                        data-bs-toggle="modal"
+                        data-bs-target="#janela_exclusao"
+                        (click)="obterFuncionario(funcionario.idFuncionario)">Excluir</button>
+            </td>
+        </tr>
+    </tbody>
+
+    <tfoot>
+        <tr>
+            <td colspan="7">Quantidade de Funcionários: {{listaFuncionarios.length}}</td>
+        </tr>
+    </tfoot>
+</table>
+
+
+<!-- -------------- MODALS ------------- -->
+
+<!-- Janela de Edição -->
+<div class="modal fade" id="janela_edicao" data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header bg-primary">
+          <h5 class="modal-title text-white">Atualizar Funcionário</h5>
+        </div>
+        <div class="modal-body">
+          <form #formEdicao="ngForm" (submit)="atualizarFuncionario(formEdicao)">
+            
+            <input type="hidden" name="idFuncionario" [(ngModel)]="funcionario.idFuncionario">
+
+            <label>Nome:</label>
+            <input type="text" name="nome" 
+                [(ngModel)]="funcionario.nome"
+                class="form-control"
+                placeholder="Ex: João Silva">
+            <br>
+
+            <label>CPF:</label>
+            <input type="text" name="cpf" 
+                [(ngModel)]="funcionario.cpf"
+                class="form-control" 
+                placeholder="Ex: 999.999.999-99">
+            <br>
+
+            <label>Salário:</label>
+            <input type="text" name="salario" 
+                [(ngModel)]="funcionario.salario"
+                class="form-control" 
+                placeholder="Ex: 9999.99">
+            <br>
+
+            <label>Data de Admissao:</label>
+            <input type="text" name="dataAdmissao" 
+                [(ngModel)]="funcionario.dataAdmissao"
+                disabled
+                class="form-control">
+            <br>
+
+            <label>CNPJ da Empresa:</label>
+            <input type="text" name="cnpj"
+                [(ngModel)]="funcionario.empresa.cnpj"
+                disabled
+                class="form-control"
+                placeholder="99.999.999/9999-99">
+            <br>
+
+            <div class="text-end">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar a Janela</button>
+                &nbsp;
+                <button type="submit" class="btn btn-primary">Salvar Alterações</button>
+            </div>
+            <br>
+
+            <div class="text-danger">
+                <ul>
+                    <li *ngFor="let mensagem of mensagens_erro">{{mensagem}}</li>
+                </ul>
+            </div>
+
+            <div class="text-success">
+                <ul>
+                    <li *ngFor="let mensagem of mensagens_sucesso"><strong>{{mensagem}}</strong></li>
+                </ul>
+            </div>
+
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+<!-- Janela de Exclusão -->
+<div class="modal fade" id="janela_exclusao" data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header bg-danger">
+          <h5 class="modal-title text-white">Excluir Funcionário</h5>
+        </div>
+        <div class="modal-body">
+
+            Deseja realmente excluir este funcionário?
+            <hr>
+
+            <div>
+                Nome: <strong>{{funcionario.nome}}</strong>
+            </div>
+            
+            <div>
+                CPF: <strong>{{funcionario.cpf}}</strong>
+            </div>
+            
+            <div>
+                Data de Admissão: <strong>{{funcionario.dataAdmissao}}</strong>
+            </div>
+
+            <div>
+                Salário: <strong>{{funcionario.salario}}</strong>
+            </div>
+
+            <div>
+                Nome Fantasia da Empresa: <strong>{{funcionario.empresa.nomeFantasia}}</strong>
+            </div>
+
+            <div>
+                CNPJ da Empresa: <strong>{{funcionario.empresa.cnpj}}</strong>
+            </div>
+            
+            <hr>
+
+            <div class="text-end">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar a Janela</button>
+                &nbsp;
+                <button type="button" class="btn btn-danger" (click)="excluirFuncionario(funcionario.idFuncionario)">Excluir Funcionário</button>
+            </div>
+            <br>
+
+            <div class="text-danger">
+                <ul>
+                    <li *ngFor="let mensagem of mensagens_erro">{{mensagem}}</li>
+                </ul>
+            </div>
+
+            <div class="text-success">
+                <ul>
+                    <li *ngFor="let mensagem of mensagens_sucesso"><strong>{{mensagem}}</strong></li>
+                </ul>
+            </div>
+            
+        </div>
+      </div>
+    </div>
+  </div>

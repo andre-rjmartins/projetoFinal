@@ -1,0 +1,148 @@
+<table class="table table-hover">
+
+    <thead>
+        <tr>
+            <th>Nome Fantasia</th>
+            <th>Razão Social</th>
+            <th>CNPJ</th>
+            <th>Operações</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        <tr *ngFor="let empresa of listaEmpresas">
+            <td>{{empresa.nomeFantasia}}</td>
+            <td>{{empresa.razaoSocial}}</td>
+            <td>{{empresa.cnpj}}</td>
+            <td>
+                <button class="btn btn-primary" 
+                        data-bs-toggle="modal" 
+                        data-bs-target="#janela_edicao" 
+                        (click)="obterEmpresa(empresa.idEmpresa)">Atualizar</button>
+                &nbsp;
+                <button class="btn btn-danger"
+                        data-bs-toggle="modal"
+                        data-bs-target="#janela_exclusao"
+                        (click)="obterEmpresa(empresa.idEmpresa)">Excluir</button>
+            </td>
+        </tr>
+    </tbody>
+
+    <tfoot>
+        <tr>
+            <td colspan="4">Quantidade de Empresas: {{listaEmpresas.length}}</td>
+        </tr>
+    </tfoot>
+</table>
+
+
+<!-- -------------- MODALS ------------- -->
+
+<!-- Janela de Edição -->
+<div class="modal fade" id="janela_edicao" data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header bg-primary">
+          <h5 class="modal-title text-white">Atualizar Empresa</h5>
+        </div>
+        <div class="modal-body">
+          <form #formEdicao="ngForm" (submit)="atualizarEmpresa(formEdicao)">
+            
+            <input type="hidden" name="idEmpresa" [(ngModel)]="empresa.idEmpresa">
+
+            <label>Nome Fantasia:</label>
+            <input type="text" name="nomeFantasia" 
+                [(ngModel)]="empresa.nomeFantasia"
+                class="form-control" 
+                placeholder="Ex: Coca-Cola">
+            <br>
+
+            <label>Razão Social:</label>
+            <input type="text" name="razaoSocial" 
+                [(ngModel)]="empresa.razaoSocial"
+                class="form-control" 
+                placeholder="Ex: Coca-Cola Empresa de Bebidas ltda.">
+            <br>
+
+            <label>CNPJ:</label>
+            <input type="text" name="cnpj" 
+                [(ngModel)]="empresa.cnpj"
+                class="form-control" 
+                placeholder="Ex: 99.999.999/9999-99">
+            <hr>
+
+            <div class="text-end">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar a Janela</button>
+                &nbsp;
+                <button type="submit" class="btn btn-primary">Salvar Alterações</button>
+            </div>
+            <br>
+
+            <div class="text-danger">
+                <ul>
+                    <li *ngFor="let mensagem of mensagens_erro">{{mensagem}}</li>
+                </ul>
+            </div>
+
+            <div class="text-success">
+                <ul>
+                    <li *ngFor="let mensagem of mensagens_sucesso"><strong>{{mensagem}}</strong></li>
+                </ul>
+            </div>
+
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+<!-- Janela de Exclusão -->
+<div class="modal fade" id="janela_exclusao" data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header bg-danger">
+          <h5 class="modal-title text-white">Excluir Empresa</h5>
+        </div>
+        <div class="modal-body">
+
+            Deseja realmente excluir esta empresa?
+            <hr>
+
+            <div>
+                Nome Fantasia: <strong>{{empresa.nomeFantasia}}</strong>
+            </div>
+            
+            <div>
+                Razão Social: <strong>{{empresa.razaoSocial}}</strong>
+            </div>
+            
+            <div>
+                CNPJ: <strong>{{empresa.cnpj}}</strong>
+            </div>
+            
+            <hr>
+
+            <div class="text-end">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar a Janela</button>
+                &nbsp;
+                <button type="button" class="btn btn-danger" (click)="excluirEmpresa(empresa.idEmpresa)">Excluir Empresa</button>
+            </div>
+            <br>
+
+            <div class="text-danger">
+                <ul>
+                    <li *ngFor="let mensagem of mensagens_erro">{{mensagem}}</li>
+                </ul>
+            </div>
+
+            <div class="text-success">
+                <ul>
+                    <li *ngFor="let mensagem of mensagens_sucesso"><strong>{{mensagem}}</strong></li>
+                </ul>
+            </div>
+            
+        </div>
+      </div>
+    </div>
+  </div>

@@ -1,0 +1,54 @@
+<h3>Cadastrar Funcionários</h3>
+<p>Preencha o formulário com as informações necessárias para cadastrar um funcionário.</p>
+<hr>
+
+<div class="text-danger">
+	<ul>
+		<li *ngFor="let mensagem of mensagens_erro">{{mensagem}}</li>
+	</ul>
+</div>
+
+<div class="text-success">
+	<ul>
+		<li *ngFor="let mensagem of mensagens_sucesso"><strong>{{mensagem}}</strong></li>
+	</ul>
+</div>
+
+<form #formCadastro="ngForm" (submit)="cadastrarFuncionario(formCadastro)" autocomplete="off">
+
+    <label>Nome:</label>
+    <input type="text" name="nome" 
+	    ngModel
+	    class="form-control" 
+	    placeholder="Ex: João Silva">
+    <br>
+
+    <label>CPF:</label>
+    <input type="text" name="cpf" 
+	    ngModel
+	    class="form-control" 
+	    placeholder="Ex: 999.999.999-99">
+    <br>
+
+    <label>Data de Admissao:</label>
+    <input type="date" name="dataAdmissao" 
+	    ngModel
+	    class="form-control">
+    <br>
+
+    <label>Salário:</label>
+    <input type="text" name="salario"
+	    ngModel
+	    class="form-control"
+		placeholder="9999.99">
+    <br>
+
+    <label>CNPJ da Empresa:</label>
+    <input type="text" name="cnpj"
+	    ngModel
+	    class="form-control"
+		placeholder="99.999.999/9999-99">
+    <br>
+
+    <input type="submit" class="btn btn-success" value="Cadastrar Funcionário">
+</form>
