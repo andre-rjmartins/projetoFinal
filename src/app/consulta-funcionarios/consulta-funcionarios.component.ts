@@ -74,6 +74,7 @@ export class ConsultaFuncionariosComponent implements OnInit {
       .subscribe(
         (data:any[]) => {
           this.mensagens_sucesso = data;
+          this.consultarFuncionarios();
         },
         (e) => {
           this.mensagens_erro = e.error;
@@ -90,6 +91,7 @@ export class ConsultaFuncionariosComponent implements OnInit {
       .subscribe(
         (data:any[]) => {
           this.mensagens_sucesso = data;
+          this.consultarFuncionarios();
         },
         (e) => {
           this.mensagens_erro = e.error;

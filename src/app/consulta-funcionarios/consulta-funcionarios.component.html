@@ -80,14 +80,14 @@
             <label>Data de Admissao:</label>
             <input type="text" name="dataAdmissao" 
                 [(ngModel)]="funcionario.dataAdmissao"
-                disabled
+                readonly
                 class="form-control">
             <br>
 
             <label>CNPJ da Empresa:</label>
             <input type="text" name="cnpj"
                 [(ngModel)]="funcionario.empresa.cnpj"
-                disabled
+                readonly
                 class="form-control"
                 placeholder="99.999.999/9999-99">
             <br>

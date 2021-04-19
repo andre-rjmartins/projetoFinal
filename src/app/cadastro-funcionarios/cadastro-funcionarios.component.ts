@@ -18,7 +18,9 @@ export class CadastroFuncionariosComponent implements OnInit {
   }
 
   cadastrarFuncionario(formCadastro) : void {
-    console.log(formCadastro.form.value);
+
+    this.mensagens_sucesso = [];
+    this.mensagens_erro = [];
 
     this.httpClient.post(environment.apiUrl + "/funcionarios", formCadastro.form.value)
       .subscribe(
@@ -27,7 +29,7 @@ export class CadastroFuncionariosComponent implements OnInit {
           formCadastro.form.reset();
         },
         (e) => {
-          console.log(e);
+          this.mensagens_erro = e.error;
         }
       );
   }
