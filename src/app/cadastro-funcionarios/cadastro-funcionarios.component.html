@@ -17,16 +17,37 @@
 <form #formCadastro="ngForm" (submit)="cadastrarFuncionario(formCadastro)" autocomplete="off">
 
     <label>Nome:</label>
-    <input type="text" name="nome" 
+    <input type="text" name="nome"
 	    ngModel
-	    class="form-control" 
+	    class="form-control"
+		required
+		minlength="3"
+		maxlength="150"
+		#nome="ngModel"
 	    placeholder="Ex: João Silva">
     <br>
+
+	<div *ngIf="nome.invalid && (nome.dirty || nome.touched)" id="erro"
+    class="alert alert-danger">
+
+		<div *ngIf="nome.errors.required">
+			Digite um nome.
+		</div>
+		<div *ngIf="nome.errors.minlength">
+			O nome deve conter pelo menos 3 caracteres.
+		</div>
+		<div *ngIf="nome.error.maxlength">
+			O nome deve pode conter no máximo 150 caracteres.
+		</div>
+
+	</div>
 
     <label>CPF:</label>
     <input type="text" name="cpf" 
 	    ngModel
-	    class="form-control" 
+	    class="form-control"
+		required
+
 	    placeholder="Ex: 999.999.999-99">
     <br>
 
